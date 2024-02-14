@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:messaging_app/Screens/utilities/searchbox.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.url});
@@ -31,18 +32,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
-            icon: const Icon(Icons.exit_to_app),
-          ),
-        ],
         title: const Text(
           "Chit_Chat",
           style: TextStyle(),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchBox(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.person_search_sharp))
+        ],
       ),
       drawer: Drawer(
         child: Column(
@@ -100,38 +105,101 @@ class _HomeScreenState extends State<HomeScreen> {
                         radius: 100,
                         backgroundImage: NetworkImage(imageUrl),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Text(
                         "Username -${data["FirstName"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Age -${data["Age"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Bio -${data["Bio"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.w500),
                       ),
-                      Divider(
-                        color: Color.fromARGB(0, 0, 0, 255),
-                        thickness: 21,
-                      )
+                      const Divider(
+                        color: Color(0xAA884490),
+                        thickness: 5,
+                        endIndent: 10,
+                        height: 10,
+                        indent: 10,
+                      ),
                     ],
                   );
                 }
               },
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: const Column(
+                children: [
+                  SizedBox(
+                    height: 300,
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              color: Color(0xAA884490),
+              thickness: 2,
+              endIndent: 5,
+              height: 0.1,
+              indent: 5,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: InkWell(
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "LogOut",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    Icon(
+                      Icons.exit_to_app_outlined,
+                      color: Color(0x66775577),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                "Privacy and Policy",
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                "About us",
+                style: TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),
