@@ -8,16 +8,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:messaging_app/Screens/CustomizedWidget/textfield.dart';
 import 'package:messaging_app/Screens/MainScreen/homepage.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  WelcomeScreen({Key? key, required this.number});
+class EditPage extends StatefulWidget {
+  EditPage({Key? key, required this.number});
 
-  final String number;
+  final number;
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<EditPage> createState() => _EditPageState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _EditPageState extends State<EditPage> {
   final TextEditingController firstname = TextEditingController();
   final TextEditingController lastname = TextEditingController();
   final TextEditingController age = TextEditingController();
@@ -69,41 +69,54 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Future<void> _submitForm() async {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      if (firstname.text.isNotEmpty ||
-          lastname.text.isNotEmpty ||
+      if (firstname.text.isNotEmpty &&
+          lastname.text.isNotEmpty &&
           age.text.isNotEmpty) {
-        String imageUrl = "";
-        if (image != null) {
-          imageUrl = await _uploadImageToStorage(image!);
-        }
-        await FirebaseFirestore.instance.collection("users").doc(user.uid).set(
-          {
-            "FirstName": firstname.text,
-            "LastName": lastname.text,
-            "Age": age.text,
-            "Bio": bio.text,
-            "PhoneNumber": widget.number,
-            "Date": DateTime.now(),
-            "ImageUrl": imageUrl,
-          },
-          SetOptions(merge: true),
-        );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(
-              url: imageUrl,
-              number: widget.number,
+        try {
+          String imageUrl = "";
+          if (image != null) {
+            imageUrl = await _uploadImageToStorage(image!);
+          }
+          await FirebaseFirestore.instance
+              .collection("users")
+              .doc(user.uid)
+              .set(
+            {
+              "FirstName": firstname.text,
+              "LastName": lastname.text,
+              "Age": age.text,
+              "Bio": bio.text,
+              "PhoneNumber": widget.number,
+              "Date": DateTime.now(),
+              "ImageUrl": imageUrl,
+            },
+            SetOptions(merge: true),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Profile updated successfully"),
+          ));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                url: imageUrl,
+                number: widget.number,
+              ),
             ),
-          ),
-        );
-        firstname.clear();
-        lastname.clear();
-        age.clear();
-        bio.clear();
+          );
+          firstname.clear();
+          lastname.clear();
+          age.clear();
+          bio.clear();
+        } catch (e) {
+          print('Error updating profile: $e');
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Failed to update profile. Please try again."),
+          ));
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Fill all required fields"),
+          content: Text("Please fill all required fields"),
         ));
       }
     } else {
@@ -119,7 +132,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Welcome to Chit_Chat"),
+        title: const Text("Edit prfile"),
       ),
       body: SingleChildScrollView(
         child: Container(

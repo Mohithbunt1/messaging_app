@@ -16,7 +16,6 @@ class GLoginPage extends StatefulWidget {
 class _GLoginPageState extends State<GLoginPage> {
   TextEditingController emailc = TextEditingController();
   TextEditingController pass = TextEditingController();
-
   Future<void> Authservice() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth =
@@ -30,25 +29,35 @@ class _GLoginPageState extends State<GLoginPage> {
     if (userCredential != null) {
       final user = userCredential.user;
       if (user != null) {
-        final userExists = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .get()
-            .then((doc) => doc.exists);
+        final userDoc =
+            FirebaseFirestore.instance.collection('users').doc(user.uid);
 
-        if (userExists) {
+        final userExists = await userDoc.get().then((doc) => doc.exists);
+
+        if (!userExists) {
+          await userDoc.set({
+            'uid': user.uid,
+            'FirstName': user.displayName,
+            'phoneNumber': user.phoneNumber,
+            'ImageUrl': user.photoURL,
+            'timestamp': DateTime.now()
+          });
+
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => HomeScreen(
-                      url: '',
-                    )),
+              builder: (context) => WelcomeScreen(number: widget.number),
+            ),
           );
         } else {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => WelcomeScreen(number: widget.number)),
+              builder: (context) => HomeScreen(
+                url: user.photoURL,
+                number: user.phoneNumber,
+              ),
+            ),
           );
         }
       }

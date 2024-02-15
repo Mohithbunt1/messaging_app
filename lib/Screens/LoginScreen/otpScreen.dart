@@ -6,8 +6,10 @@ import 'package:messaging_app/Screens/MainScreen/homepage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpAuth extends StatefulWidget {
-  const OtpAuth({super.key, required this.verificationId});
+  const OtpAuth(
+      {super.key, required this.verificationId, required this.number});
   final verificationId;
+  final number;
   @override
   State<OtpAuth> createState() => _OtpAuthState();
 }
@@ -126,7 +128,8 @@ class _OtpAuthState extends State<OtpAuth> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(
+                            builder: (context) => HomeScreen(
+                              number: widget.number,
                               url: "",
                             ),
                           ),

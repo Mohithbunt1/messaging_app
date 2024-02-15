@@ -22,6 +22,7 @@ class SignInPage extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => OtpAuth(
                     verificationId: verifyId,
+                    number: phoneController.text,
                   ),
                 ),
               );
