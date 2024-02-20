@@ -109,6 +109,11 @@ class _OtpAuthState extends State<OtpAuth> {
                 ),
                 onPressed: () async {
                   try {
+                    print(
+                        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.verificationId}");
+                    print(
+                        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.number}");
+
                     PhoneAuthCredential cred = PhoneAuthProvider.credential(
                       verificationId: widget.verificationId,
                       smsCode: otpcontroller.text.toString(),
@@ -125,12 +130,21 @@ class _OtpAuthState extends State<OtpAuth> {
                           .get();
 
                       if (currentuser.exists) {
+                        print(
+                            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.verificationId}");
+                        print(
+                            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.number}");
+                        print(
+                            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${currentuser}");
+                        print(
+                            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
+
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomeScreen(
                               number: widget.number,
-                              url: "",
+                              url: user.photoURL,
                             ),
                           ),
                         );
@@ -143,6 +157,10 @@ class _OtpAuthState extends State<OtpAuth> {
                             ),
                           ),
                         );
+                        print(
+                            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.verificationId}");
+                        print(
+                            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.number}");
                       }
                     });
                   } on FirebaseAuthException catch (e) {

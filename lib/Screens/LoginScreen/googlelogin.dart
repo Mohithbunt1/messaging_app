@@ -64,11 +64,6 @@ class _GLoginPageState extends State<GLoginPage> {
     }
   }
 
-  bool password = true;
-  final _auth = FirebaseAuth.instance;
-  final _googleSignIn = GoogleSignIn();
-  String _error = "";
-
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -88,6 +88,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           },
           SetOptions(merge: true),
         );
+        print(
+            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
+        print(
+            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

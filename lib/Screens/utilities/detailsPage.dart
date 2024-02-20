@@ -95,6 +95,11 @@ class _EditPageState extends State<EditPage> {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Profile updated successfully"),
           ));
+          print(
+              ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
+          print(
+              ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${imageUrl}");
+
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

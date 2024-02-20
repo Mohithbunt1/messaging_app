@@ -26,6 +26,8 @@ class SignInPage extends StatelessWidget {
                   ),
                 ),
               );
+              print(
+                  ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${phoneController.text}");
             },
             codeAutoRetrievalTimeout: (String verifId) {},
             phoneNumber: "+91${phoneController.text}");
