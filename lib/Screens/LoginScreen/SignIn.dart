@@ -9,7 +9,6 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final phoneController = TextEditingController();
-    // final passController = TextEditingController();
 
     void onsubmitted() async {
       try {
@@ -45,8 +44,8 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 2,
+          width: MediaQuery.of(context).size.width * 2,
           decoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.green.withOpacity(0.8), Colors.white],
@@ -73,12 +72,12 @@ class SignInPage extends StatelessWidget {
                   foregroundColor: Colors.green),
               const SizedBox(height: 50),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 170),
+                padding: const EdgeInsets.symmetric(horizontal: 100),
                 child: Text(
                   "L O G I N",
                   style: TextStyle(
                       color: Colors.green[900],
-                      fontSize: 40,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
               ),

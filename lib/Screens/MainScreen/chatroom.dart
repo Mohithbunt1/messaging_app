@@ -1,6 +1,6 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 // class ChatRoomScreen extends StatefulWidget {
 //   const ChatRoomScreen({
@@ -11,6 +11,7 @@
 //   }) : super(key: key);
 
 //   final data;
+
 //   final chatroomid;
 //   final reciverId;
 
@@ -72,17 +73,17 @@
 //                     itemCount: messages.length,
 //                     itemBuilder: (context, index) {
 //                       final message = messages[index].data();
-//                       return Column(
-//                         children: [
-//                           ListTile(
-//                             title: Text(message["text"]),
-//                             subtitle: Text(message["senderId"]),
-//                           ),
-//                           ListTile(
-//                             title: Text(message["text"]),
-//                             subtitle: Text(message["reciverId"]),
-//                           )
-//                         ],
+//                       final isSentByCurrentUser = message["senderId"] ==
+//                           FirebaseAuth.instance.currentUser!.uid;
+
+//                       return ListTile(
+//                         title: Text(message["text"]),
+//                         subtitle: Text(
+//                             isSentByCurrentUser ? "You" : widget.reciverId),
+//                         trailing:
+//                             isSentByCurrentUser ? null : Icon(Icons.person),
+//                         leading:
+//                             isSentByCurrentUser ? Icon(Icons.person) : null,
 //                       );
 //                     },
 //                   );
@@ -137,7 +138,7 @@
 //                               "text": textController.text,
 //                               "senderId":
 //                                   FirebaseAuth.instance.currentUser!.uid,
-//                               "reciverId": widget.reciverId,
+//                               "receiverId": widget.reciverId,
 //                               "timestamp": DateTime.now(),
 //                             });
 //                             textController.clear();
@@ -168,35 +169,49 @@
 //     );
 //   }
 // }
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-
 class ChatRoomScreen extends StatefulWidget {
   const ChatRoomScreen({
     Key? key,
     this.data,
-    this.chatroomid,
-    required this.reciverId,
+    required this.chatroomid,
+    required this.receiverId,
   }) : super(key: key);
 
   final data;
-
-  final chatroomid;
-  final reciverId;
+  final String chatroomid;
+  final String receiverId;
 
   @override
   State<ChatRoomScreen> createState() => _ChatRoomScreenState();
 }
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
+  late String receiverName;
   final textController = TextEditingController();
 
   @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    fetchReceiverName();
+  }
+
+  Future<void> fetchReceiverName() async {
+    try {
+      final receiverDoc = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(widget.receiverId)
+          .get();
+      if (receiverDoc.exists) {
+        setState(() {
+          receiverName = receiverDoc["FirstName"] ??
+              ""; // Replace "FirstName" with the correct field name
+        });
+      } else {
+        print("Receiver document does not exist");
+      }
+    } catch (e) {
+      print("Error fetching receiver's name: $e");
+    }
   }
 
   @override
@@ -208,7 +223,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           child: CircleAvatar(),
         ),
         title: Text(
-          widget.reciverId,
+          receiverName ?? "", // Display receiver's name in the app bar title
           style: const TextStyle(color: Colors.white, fontSize: 30),
         ),
         backgroundColor: Colors.green.withOpacity(0.8),
@@ -247,18 +262,14 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       final isSentByCurrentUser = message["senderId"] ==
                           FirebaseAuth.instance.currentUser!.uid;
 
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: Text(message["text"]),
-                            subtitle: Text(
-                                isSentByCurrentUser ? "You" : widget.reciverId),
-                            trailing:
-                                isSentByCurrentUser ? null : Icon(Icons.person),
-                            leading:
-                                isSentByCurrentUser ? Icon(Icons.person) : null,
-                          ),
-                        ],
+                      return ListTile(
+                        title: Text(message["text"]),
+                        subtitle: Text(
+                            isSentByCurrentUser ? "You" : widget.receiverId),
+                        trailing:
+                            isSentByCurrentUser ? null : Icon(Icons.person),
+                        leading:
+                            isSentByCurrentUser ? Icon(Icons.person) : null,
                       );
                     },
                   );
@@ -313,7 +324,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                               "text": textController.text,
                               "senderId":
                                   FirebaseAuth.instance.currentUser!.uid,
-                              "reciverId": widget.reciverId,
+                              "receiverId": widget.receiverId,
                               "timestamp": DateTime.now(),
                             });
                             textController.clear();

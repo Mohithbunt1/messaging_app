@@ -79,7 +79,7 @@ class _SearchBoxState extends State<SearchBox> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ChatRoomScreen(
-                                reciverId: receiverId,
+                                receiverId: receiverId,
                                 chatroomid: chatRoomId,
                               ),
                             ),

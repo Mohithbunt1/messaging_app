@@ -74,42 +74,64 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           age.text.isNotEmpty) {
         String imageUrl = "";
         if (image != null) {
-          imageUrl = await _uploadImageToStorage(image!);
+          try {
+            imageUrl = await _uploadImageToStorage(image!);
+          } catch (e) {
+            print('Error uploading image: $e');
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Failed to upload image"),
+              ),
+            );
+            return;
+          }
         }
-        await FirebaseFirestore.instance.collection("users").doc(user.uid).set(
-          {
-            "FirstName": firstname.text,
-            "LastName": lastname.text,
-            "Age": age.text,
-            "Bio": bio.text,
-            "PhoneNumber": widget.number,
-            "Date": DateTime.now(),
-            "ImageUrl": imageUrl,
-          },
-          SetOptions(merge: true),
-        );
-        print(
-            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
-        print(
-            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(
-              url: imageUrl,
-              number: widget.number,
+        try {
+          await FirebaseFirestore.instance
+              .collection("users")
+              .doc(user.uid)
+              .set(
+            {
+              "FirstName": firstname.text,
+              "LastName": lastname.text,
+              "Age": age.text,
+              "Bio": bio.text,
+              "PhoneNumber": widget.number,
+              "Date": DateTime.now(),
+              "ImageUrl": imageUrl,
+            },
+            SetOptions(merge: true),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                url: imageUrl,
+                number: widget.number,
+              ),
             ),
+          );
+          firstname.clear();
+          lastname.clear();
+          age.clear();
+          bio.clear();
+          setState(() {
+            image = null;
+          });
+        } catch (e) {
+          print('Error submitting form: $e');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Failed to submit form"),
+            ),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Fill all required fields"),
           ),
         );
-        firstname.clear();
-        lastname.clear();
-        age.clear();
-        bio.clear();
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Fill all required fields"),
-        ));
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -128,8 +150,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 2,
+          width: MediaQuery.of(context).size.width * 1,
           decoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.green.withOpacity(0.8), Colors.white],
