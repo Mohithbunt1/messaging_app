@@ -18,6 +18,8 @@ class _OtpAuthState extends State<OtpAuth> {
   var otpcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print(
+        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>###########3()()()()()()()()()()()${widget.number}");
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -56,7 +58,6 @@ class _OtpAuthState extends State<OtpAuth> {
                   cursorColor: Colors.black,
                   animationDuration: const Duration(milliseconds: 300),
                   textStyle: const TextStyle(fontSize: 20, height: 1.6),
-                  enableActiveFill: true,
                   controller: otpcontroller,
                   keyboardType: TextInputType.number,
                   boxShadows: const [
@@ -148,19 +149,21 @@ class _OtpAuthState extends State<OtpAuth> {
                             ),
                           ),
                         );
+                        print(
+                            "checking if the number passes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LCdkjushgv?>>>>>>${widget.number}");
                       } else {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => WelcomeScreen(
-                              number: widget.verificationId,
+                              number: widget.number,
                             ),
                           ),
                         );
                         print(
                             ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.verificationId}");
                         print(
-                            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.number}");
+                            "cheking for welcome number>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.number}");
                       }
                     });
                   } on FirebaseAuthException catch (e) {

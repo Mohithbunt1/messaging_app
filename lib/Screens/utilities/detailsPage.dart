@@ -22,6 +22,8 @@ class _EditPageState extends State<EditPage> {
   final TextEditingController lastname = TextEditingController();
   final TextEditingController age = TextEditingController();
   final TextEditingController bio = TextEditingController();
+  final TextEditingController phonenumc = TextEditingController();
+
   File? image;
 
   Future<void> _getCameraImage() async {
@@ -86,7 +88,7 @@ class _EditPageState extends State<EditPage> {
               "LastName": lastname.text,
               "Age": age.text,
               "Bio": bio.text,
-              "PhoneNumber": widget.number,
+              "PhoneNumber": phonenumc.text,
               "Date": DateTime.now(),
               "ImageUrl": imageUrl,
             },
@@ -248,6 +250,11 @@ class _EditPageState extends State<EditPage> {
               CustomTextField(
                 controller: age,
                 hintText: "Enter your age",
+              ),
+              const SizedBox(height: 10),
+              CustomTextField(
+                controller: phonenumc,
+                hintText: "Enter your number",
               ),
               const SizedBox(height: 10),
               CustomTextField(

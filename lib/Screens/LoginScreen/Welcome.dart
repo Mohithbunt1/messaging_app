@@ -102,6 +102,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             },
             SetOptions(merge: true),
           );
+          print(
+              "*************************************************************************************************");
+          print(firstname.text);
+          print(lastname.text);
+          print(age.text);
+          print(widget.number);
+          print(imageUrl);
+          print(
+              "********************************************************************************************************");
+
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -111,6 +121,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
           );
+          print(
+              "number in welcome to home()))*&*(**&&&*&&*(*((*&^^****************************>>>>>>>>>>>.${widget.number}");
           firstname.clear();
           lastname.clear();
           age.clear();

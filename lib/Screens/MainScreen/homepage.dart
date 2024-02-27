@@ -62,8 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context) => ChatRoomScreen(
               receiverId: userId,
               chatroomid: chatRoomId,
-              // Pass the user data here
-              data: null, // Replace null with the actual user data
             ),
           ),
         );
@@ -216,6 +214,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(
                             height: 20,
+                          ),
+                          Text(
+                            "PhoneNumber -${data["PhoneNumber"]}",
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
                           ),
                           Text(
                             "Bio -${data["Bio"]}",

@@ -16,6 +16,7 @@ class GLoginPage extends StatefulWidget {
 class _GLoginPageState extends State<GLoginPage> {
   TextEditingController emailc = TextEditingController();
   TextEditingController pass = TextEditingController();
+
   Future<void> Authservice() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth =
@@ -42,13 +43,16 @@ class _GLoginPageState extends State<GLoginPage> {
             'ImageUrl': user.photoURL,
             'timestamp': DateTime.now()
           });
-
+          print(
+              ">>>>>>>>>>>>>>>>>>>>>googlelogin phone number from userL>??><>?><>?><>?>?>?)(*&^%?_)(*&^%#@${user.phoneNumber}");
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => WelcomeScreen(number: widget.number),
             ),
           );
+          print(
+              "checking if the number is passing ======>>>>>>>>>>welcome >>>>>>>>>>>>>>>>>>>>>>>>>>>>>JHJ)9'${widget.number}");
         } else {
           Navigator.pushReplacement(
             context,
