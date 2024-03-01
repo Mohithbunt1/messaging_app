@@ -143,7 +143,6 @@ class _EditPageState extends State<EditPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -151,124 +150,126 @@ class _EditPageState extends State<EditPage> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter),
           ),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              const Text(
-                "Chit_Chat Welcomes you",
-                style: TextStyle(fontSize: 33, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "As a new user please fill the fields below",
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 100,
                 ),
-              ),
-              const SizedBox(height: 30),
-              Stack(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: image != null ? FileImage(image!) : null,
-                    radius: 100,
+                const Text(
+                  "Chit_Chat Welcomes you",
+                  style: TextStyle(fontSize: 33, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "As a new user please fill the fields below",
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.6),
                   ),
-                  Positioned(
-                    bottom: 1,
-                    right: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: IconButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return Column(
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Text(
-                                      "Select from",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 26,
-                                        fontWeight: FontWeight.w400,
+                ),
+                const SizedBox(height: 30),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: image != null ? FileImage(image!) : null,
+                      radius: 100,
+                    ),
+                    Positioned(
+                      bottom: 1,
+                      right: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Column(
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(15.0),
+                                      child: Text(
+                                        "Select from",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 150,
+                                    const SizedBox(
+                                      height: 10,
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        IconButton(
-                                          onPressed: _getCameraImage,
-                                          icon: const Icon(
-                                            Icons.camera_alt,
-                                            size: 50,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 150,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          IconButton(
+                                            onPressed: _getCameraImage,
+                                            icon: const Icon(
+                                              Icons.camera_alt,
+                                              size: 50,
+                                            ),
                                           ),
-                                        ),
-                                        IconButton(
-                                          onPressed: _getGalleryImage,
-                                          icon: const Icon(
-                                            Icons.image,
-                                            size: 50,
+                                          IconButton(
+                                            onPressed: _getGalleryImage,
+                                            icon: const Icon(
+                                              Icons.image,
+                                              size: 50,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        icon: const Icon(Icons.edit),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.edit),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 20),
-              CustomTextField(
-                controller: firstname,
-                hintText: "First Name",
-              ),
-              const SizedBox(height: 10),
-              CustomTextField(
-                controller: lastname,
-                hintText: "Last Name",
-              ),
-              const SizedBox(height: 10),
-              CustomTextField(
-                controller: age,
-                hintText: "Enter your age",
-              ),
-              const SizedBox(height: 10),
-              CustomTextField(
-                controller: phonenumc,
-                hintText: "Enter your number",
-              ),
-              const SizedBox(height: 10),
-              CustomTextField(
-                controller: bio,
-                hintText: "bio",
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text("Submit"),
-              ),
-            ],
+                    )
+                  ],
+                ),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  controller: firstname,
+                  hintText: "First Name",
+                ),
+                const SizedBox(height: 10),
+                CustomTextField(
+                  controller: lastname,
+                  hintText: "Last Name",
+                ),
+                const SizedBox(height: 10),
+                CustomTextField(
+                  controller: age,
+                  hintText: "Enter your age",
+                ),
+                const SizedBox(height: 10),
+                CustomTextField(
+                  controller: phonenumc,
+                  hintText: "Enter your number",
+                ),
+                const SizedBox(height: 10),
+                CustomTextField(
+                  controller: bio,
+                  hintText: "bio",
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: _submitForm,
+                  child: const Text("Submit"),
+                ),
+              ],
+            ),
           ),
         ),
       ),

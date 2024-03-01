@@ -102,17 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: Drawer(
-        child: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 1,
-            width: MediaQuery.of(context).size.width * 1,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.green.withOpacity(0.8), Colors.white],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 1,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.green.withOpacity(0.8), Colors.white],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
+          ),
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
@@ -292,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection("users").snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -306,17 +305,33 @@ class _HomeScreenState extends State<HomeScreen> {
           return ListView.builder(
             itemCount: users.length,
             itemBuilder: (context, index) {
-              final userData = users[index].data() as Map<String, dynamic>;
+              final userData = users[index].data();
               final userId = users[index].id;
               final firstName = userData['FirstName'] ?? '';
+              final image = userData['ImageUrl'] ?? '';
+              final number = userData['PhoneNumber'] ?? '';
               if (userId != currentUserUid) {
                 return GestureDetector(
                   onTap: () async {
                     await _createChatRoom(userId);
                   },
-                  child: Card(
-                    child: ListTile(
-                      title: Text(firstName),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 5, right: 2, left: 2),
+                    child: Card(
+                      shape: const ContinuousRectangleBorder(),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              image.isNotEmpty ? NetworkImage(image) : null,
+                        ),
+                        title: Text(
+                          firstName,
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w600),
+                        ),
+                        subtitle: Text(number),
+                      ),
                     ),
                   ),
                 );

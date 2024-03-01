@@ -160,16 +160,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       appBar: AppBar(
         title: const Text("Welcome to Chit_Chat"),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 2,
-          width: MediaQuery.of(context).size.width * 1,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.green.withOpacity(0.8), Colors.white],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter),
-          ),
+      body: Container(
+        height: MediaQuery.of(context).size.height * 2,
+        width: MediaQuery.of(context).size.width * 1,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.green.withOpacity(0.8), Colors.white],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter),
+        ),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(

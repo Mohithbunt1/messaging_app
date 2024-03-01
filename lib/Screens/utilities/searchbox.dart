@@ -53,6 +53,9 @@ class _SearchBoxState extends State<SearchBox> {
                 final firstName = userData['FirstName'] ?? '';
                 final lastName = userData['LastName'] ?? '';
                 final phoneNumber = userData['Phone number'] ?? '';
+                final image = userData['ImageUrl'] ?? '';
+
+                final number = userData['PhoneNumber'] ?? '';
 
                 if (firstName
                         .toLowerCase()
@@ -68,12 +71,12 @@ class _SearchBoxState extends State<SearchBox> {
 
                       if (receiverId != null) {
                         final chatRoomId = senderId!.uid + receiverId;
-
                         FirebaseFirestore.instance
                             .collection("chat_rooms")
                             .doc(chatRoomId)
                             .set({
                           "participants": [senderId.uid, receiverId],
+                          "time": DateTime.now()
                         }).then((_) {
                           Navigator.push(
                             context,
@@ -90,6 +93,11 @@ class _SearchBoxState extends State<SearchBox> {
                     child: Card(
                       child: ListTile(
                         title: Text(firstName),
+                        leading: CircleAvatar(
+                          backgroundImage:
+                              image.isNotEmpty ? NetworkImage(image) : null,
+                        ),
+                        subtitle: Text(number),
                       ),
                     ),
                   );
