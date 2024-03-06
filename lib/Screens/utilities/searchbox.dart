@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:messaging_app/Screens/MainScreen/chatroom.dart';
 
 class SearchBox extends StatefulWidget {
@@ -78,15 +79,21 @@ class _SearchBoxState extends State<SearchBox> {
                           "participants": [senderId.uid, receiverId],
                           "time": DateTime.now()
                         }).then((_) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatRoomScreen(
-                                receiverId: receiverId,
-                                chatroomid: chatRoomId,
-                              ),
+                          Get.to(
+                            ChatRoomScreen(
+                              receiverId: receiverId,
+                              chatroomid: chatRoomId,
                             ),
                           );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ChatRoomScreen(
+                          //       receiverId: receiverId,
+                          //       chatroomid: chatRoomId,
+                          //     ),
+                          //   ),
+                          //  );
                         });
                       }
                     },

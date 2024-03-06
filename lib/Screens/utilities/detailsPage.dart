@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:messaging_app/Screens/CustomizedWidget/textfield.dart';
 import 'package:messaging_app/Screens/MainScreen/homepage.dart';
@@ -94,44 +95,55 @@ class _EditPageState extends State<EditPage> {
             },
             SetOptions(merge: true),
           );
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Profile updated successfully"),
-          ));
+          Get.snackbar("Success", "Profile updated successfully");
+          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          //   content: Text("Profile updated successfully"),
+          // ));
           print(
               ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
           print(
               ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${imageUrl}");
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                url: imageUrl,
-                number: widget.number,
-              ),
+          Get.to(
+            HomeScreen(
+              url: imageUrl,
+              number: widget.number,
             ),
           );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => HomeScreen(
+          //       url: imageUrl,
+          //       number: widget.number,
+          //     ),
+          //   ),
+          // );
           firstname.clear();
           lastname.clear();
           age.clear();
           bio.clear();
         } catch (e) {
           print('Error updating profile: $e');
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Failed to update profile. Please try again."),
-          ));
+          Get.snackbar("Failed", "Failed to update profile. Please try again.");
+          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          //   content: Text("Failed to update profile. Please try again."),
+          // ));
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Please fill all required fields"),
-        ));
+        Get.snackbar("Failed", "Please fill all required fields");
+
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //   content: Text("Please fill all required fields"),
+        // ));
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Data/account already exists, try to sign in"),
-        ),
-      );
+      Get.snackbar("Failed", "Data/account already exists, try to sign in");
+
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //     content: Text("Data/account already exists, try to sign in"),
+      //   ),
+      // );
     }
   }
 

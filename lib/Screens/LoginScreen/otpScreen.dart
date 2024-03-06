@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:messaging_app/Screens/LoginScreen/Welcome.dart';
 import 'package:messaging_app/Screens/MainScreen/homepage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -139,27 +140,27 @@ class _OtpAuthState extends State<OtpAuth> {
                             ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${currentuser}");
                         print(
                             ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${user}");
+                        Get.to(HomeScreen(
+                          number: widget.number,
+                          url: user.photoURL,
+                        ));
 
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(
-                              number: widget.number,
-                              url: user.photoURL,
-                            ),
-                          ),
-                        );
                         print(
                             "checking if the number passes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LCdkjushgv?>>>>>>${widget.number}");
                       } else {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => WelcomeScreen(
-                              number: widget.number,
-                            ),
+                        Get.to(
+                          WelcomeScreen(
+                            number: widget.number,
                           ),
                         );
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => WelcomeScreen(
+                        //       number: widget.number,
+                        //     ),
+                        //   ),
+                        // );
                         print(
                             ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.verificationId}");
                         print(

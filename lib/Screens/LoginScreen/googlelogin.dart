@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messaging_app/Screens/LoginScreen/Welcome.dart';
 import 'package:messaging_app/Screens/MainScreen/homepage.dart';
@@ -45,23 +46,15 @@ class _GLoginPageState extends State<GLoginPage> {
           });
           print(
               ">>>>>>>>>>>>>>>>>>>>>googlelogin phone number from userL>??><>?><>?><>?>?>?)(*&^%?_)(*&^%#@${user.phoneNumber}");
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => WelcomeScreen(number: widget.number),
-            ),
+
+          Get.to(
+            WelcomeScreen(number: widget.number),
           );
           print(
               "checking if the number is passing ======>>>>>>>>>>welcome >>>>>>>>>>>>>>>>>>>>>>>>>>>>>JHJ)9'${widget.number}");
         } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                url: user.photoURL,
-                number: user.phoneNumber,
-              ),
-            ),
+          Get.to(
+            HomeScreen(url: user.photoURL, number: user.phoneNumber),
           );
         }
       }

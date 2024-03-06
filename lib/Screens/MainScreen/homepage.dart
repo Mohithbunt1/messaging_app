@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:messaging_app/Screens/LoginScreen/SignIn.dart';
 import 'package:messaging_app/Screens/MainScreen/chatroom.dart';
 import 'package:messaging_app/Screens/utilities/detailsPage.dart';
@@ -55,26 +56,33 @@ class _HomeScreenState extends State<HomeScreen> {
             "participants": [currentUserUid, userId],
           });
         }
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatRoomScreen(
-              receiverId: userId,
-              chatroomid: chatRoomId,
-            ),
+        Get.to(
+          ChatRoomScreen(
+            receiverId: userId,
+            chatroomid: chatRoomId,
           ),
         );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => ChatRoomScreen(
+        //       receiverId: userId,
+        //       chatroomid: chatRoomId,
+        //     ),
+        //   ),
+        // );
       } else {
         throw Exception('Current user not found');
       }
     } catch (e) {
       print("Error creating chat room: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Failed to create chat room"),
-        ),
-      );
+      Get.snackbar("HEy there", "Failed to create chat room");
+
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text("Failed to create chat room"),
+      //   ),
+      // );
     }
   }
 
@@ -90,12 +98,13 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SearchBox(),
-                ),
-              );
+              Get.to(SearchBox());
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const SearchBox(),
+              //   ),
+              // );
             },
             icon: const Icon(Icons.person_search_sharp),
           )
@@ -164,13 +173,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditPage(number: number),
-                                  ),
-                                );
+                                Get.to(EditPage(number: number));
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         EditPage(number: number),
+                                //   ),
+                                // );
                               },
                               icon: Icon(Icons.edit),
                             ),
@@ -185,13 +195,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           IconButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditPage(number: number),
-                                ),
+                              Get.to(
+                                EditPage(number: number),
                               );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         EditPage(number: number),
+                              //   ),
+                              // );
                             },
                             icon: Icon(Icons.edit),
                           ),
@@ -260,11 +273,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: InkWell(
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignInPage(),
-                          ));
+                      Get.to(SignInPage());
+
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => const SignInPage(),
+                      //     ));
                     },
                     child: const Logout(),
                   ),

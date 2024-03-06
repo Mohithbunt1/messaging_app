@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:messaging_app/Screens/CustomizedWidget/textfield.dart';
 import 'package:messaging_app/Screens/MainScreen/homepage.dart';
@@ -78,11 +79,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             imageUrl = await _uploadImageToStorage(image!);
           } catch (e) {
             print('Error uploading image: $e');
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Failed to upload image"),
-              ),
-            );
+            Get.snackbar("Error", "Failed to upload the image");
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   const SnackBar(
+            //     content: Text("Failed to upload image"),
+            //   ),
+            // );
             return;
           }
         }
@@ -111,16 +113,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           print(imageUrl);
           print(
               "********************************************************************************************************");
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                url: imageUrl,
-                number: widget.number,
-              ),
+          Get.to(
+            HomeScreen(
+              url: imageUrl,
+              number: widget.number,
             ),
           );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => HomeScreen(
+          //       url: imageUrl,
+          //       number: widget.number,
+          //     ),
+          //   ),
+          // );
           print(
               "number in welcome to home()))*&*(**&&&*&&*(*((*&^^****************************>>>>>>>>>>>.${widget.number}");
           firstname.clear();
@@ -132,25 +139,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           });
         } catch (e) {
           print('Error submitting form: $e');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Failed to submit form"),
-            ),
-          );
+          Get.snackbar("Error", "Failed to submit form");
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   const SnackBar(
+          //     content: Text("Failed to submit form"),
+          //   ),
+          // );
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Fill all required fields"),
-          ),
-        );
+        Get.snackbar("HEy there", "Fill all required fields");
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text("Fill all required fields"),
+        //   ),
+        // );
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Data/account already exists, try to sign in"),
-        ),
-      );
+      Get.snackbar("Something went wrong",
+          "Data/account already exists, try to sign in");
+
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //     content: Text("Data/account already exists, try to sign in"),
+      //   ),
+      // );
     }
   }
 

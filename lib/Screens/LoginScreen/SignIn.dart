@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:messaging_app/Screens/LoginScreen/googlelogin.dart';
 import 'package:messaging_app/Screens/LoginScreen/otpScreen.dart';
 
@@ -16,28 +17,35 @@ class SignInPage extends StatelessWidget {
             verificationCompleted: (PhoneAuthCredential Cred) {},
             verificationFailed: (FirebaseAuthException e) {},
             codeSent: (String verifyId, int? resendotp) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OtpAuth(
-                    verificationId: verifyId,
-                    number: phoneController.text,
-                  ),
+              Get.to(
+                OtpAuth(
+                  verificationId: verifyId,
+                  number: phoneController.text,
                 ),
               );
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => OtpAuth(
+              //       verificationId: verifyId,
+              //       number: phoneController.text,
+              //     ),
+              //   ),
+              // );
               print(
                   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${phoneController.text}");
             },
             codeAutoRetrievalTimeout: (String verifId) {},
             phoneNumber: "+91${phoneController.text}");
       } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              "${e.message}",
-            ),
-          ),
-        );
+        Get.snackbar("Error", "${e.message}");
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text(
+        //       "${e.message}",
+        //     ),
+        //   ),
+        // );
       }
     }
 
