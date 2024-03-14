@@ -5,18 +5,21 @@ import 'package:get/get.dart';
 import 'package:messaging_app/Screens/LoginScreen/Welcome.dart';
 import 'package:messaging_app/Screens/MainScreen/homepage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpAuth extends StatefulWidget {
   const OtpAuth(
       {super.key, required this.verificationId, required this.number});
   final verificationId;
   final number;
+
   @override
   State<OtpAuth> createState() => _OtpAuthState();
 }
 
 class _OtpAuthState extends State<OtpAuth> {
   var otpcontroller = TextEditingController();
+  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     print(
@@ -110,6 +113,12 @@ class _OtpAuthState extends State<OtpAuth> {
                       MaterialStatePropertyAll(Colors.green.shade500),
                 ),
                 onPressed: () async {
+                  setState(() {
+                    isloading = false;
+                  });
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  await pref.setBool('statuslog', true);
                   try {
                     print(
                         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>>>>${widget.verificationId}");
