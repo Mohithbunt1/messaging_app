@@ -558,25 +558,25 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   File? imageFile;
   String imageUrl = "";
 
-  Future getImageCamera() async {
-    try {
-      final pickedFile =
-          await ImagePicker().pickImage(source: ImageSource.camera);
-      if (pickedFile == null) return;
-      final imageTemp = File(pickedFile.path);
-      final fileName = "${DateTime.now().millisecondsSinceEpoch}.jpg";
-      final storageRef = FirebaseStorage.instance.ref();
-      final imageRef = storageRef.child("images/$fileName");
-      await imageRef.putFile(imageTemp);
-      final imageUrl = await imageRef.getDownloadURL();
-      setState(() {
-        imageFile = imageTemp;
-        this.imageUrl = imageUrl;
-      });
-    } catch (e) {
-      print('Error picking/uploading image from camera: $e');
-    }
-  }
+  // Future getImageCamera() async {
+  //   try {
+  //     final pickedFile =
+  //         await ImagePicker().pickImage(source: ImageSource.camera);
+  //     if (pickedFile == null) return;
+  //     final imageTemp = File(pickedFile.path);
+  //     final fileName = "${DateTime.now().millisecondsSinceEpoch}.jpg";
+  //     final storageRef = FirebaseStorage.instance.ref();
+  //     final imageRef = storageRef.child("images/$fileName");
+  //     await imageRef.putFile(imageTemp);
+  //     final imageUrl = await imageRef.getDownloadURL();
+  //     setState(() {
+  //       imageFile = imageTemp;
+  //       this.imageUrl = imageUrl;
+  //     });
+  //   } catch (e) {
+  //     print('Error picking/uploading image from camera: $e');
+  //   }
+  // }
 
   @override
   void initState() {
@@ -698,7 +698,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 children: [
                   Expanded(
                     child: IconButton(
-                      onPressed: getImageCamera,
+                      onPressed: () {},
                       icon: const Icon(Icons.camera_alt),
                     ),
                   ),

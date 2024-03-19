@@ -51,115 +51,139 @@ class SignInPage extends StatelessWidget {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 2,
-          width: MediaQuery.of(context).size.width * 2,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.green.withOpacity(0.8), Colors.white],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter),
-          ),
-          // decoration: const BoxDecoration(
-          //   image: DecorationImage(
-          //     opacity: 0.8,
-          //     image: NetworkImage(
-          //       "https://img.freepik.com/free-vector/stream-binary-code-design-vector_53876-170622.jpg?w=360&t=st=1707403816~exp=1707404416~hmac=ba57cfb4c5c0b9724633e78b36a477f120c1bb15c65225ff0a8edfe1b5eea51c",
-          //     ),
-          //     fit: BoxFit.cover,
-          //   ),
-          // ),
-          child: Column(
-            children: [
-              const SizedBox(height: 200),
-              const CircleAvatar(
-                  radius: 130,
-                  backgroundImage: NetworkImage(
-                      // "https://t4.ftcdn.net/jpg/01/34/65/09/240_F_134650964_bwxkr6J1hKrVOgmmz6fxvxPvuGW2vy3N.jpg",
-                      "https://img.freepik.com/free-vector/hello-comic-style_53876-26585.jpg?w=740&t=st=1707461694~exp=1707462294~hmac=80c21dfff96e12f61b84a05e09a18b5542be27f10f7d0af917b7c98af33d43a6"),
-                  foregroundColor: Colors.green),
-              const SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100),
-                child: Text(
-                  "L O G I N",
-                  style: TextStyle(
-                      color: Colors.green[900],
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              const SizedBox(height: 60),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  width: 400,
-                  child: TextField(
-                    keyboardType: TextInputType.phone,
-                    style: const TextStyle(color: Colors.white, fontSize: 22),
-                    controller: phoneController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
+        child: Stack(children: [
+          Container(height: 20, decoration: BoxDecoration(color: Colors.white)),
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.88,
+                width: MediaQuery.of(context).size.width * 1,
+
+                decoration: BoxDecoration(color: Color.fromARGB(255, 4, 0, 48)
+                    // gradient: LinearGradient(
+                    //     colors: [Color.fromARGB(255, 3, 0, 34), Colors.white10],
+                    //     begin: Alignment.topCenter,
+                    //     end: Alignment.bottomCenter),
+                    ),
+                // decoration: const BoxDecoration(
+                //   image: DecorationImage(
+                //     opacity: 0.8,
+                //     image: NetworkImage(
+                //       "https://img.freepik.com/free-vector/stream-binary-code-design-vector_53876-170622.jpg?w=360&t=st=1707403816~exp=1707404416~hmac=ba57cfb4c5c0b9724633e78b36a477f120c1bb15c65225ff0a8edfe1b5eea51c",
+                //     ),
+                //     fit: BoxFit.cover,
+                //   ),
+                // ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 100),
+                    const CircleAvatar(
+                        radius: 130,
+                        backgroundColor: Color.fromARGB(255, 4, 0, 48),
+                        backgroundImage: NetworkImage(
+                            "https://wallpaperaccess.com/full/3622496.jpg"
+                            // "https://t4.ftcdn.net/jpg/01/34/65/09/240_F_134650964_bwxkr6J1hKrVOgmmz6fxvxPvuGW2vy3N.jpg",
+                            // "https://img.freepik.com/free-vector/hello-comic-style_53876-26585.jpg?w=740&t=st=1707461694~exp=1707462294~hmac=80c21dfff96e12f61b84a05e09a18b5542be27f10f7d0af917b7c98af33d43a6",
+                            ),
+                        foregroundColor: Colors.white),
+                    const SizedBox(height: 30),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 100),
+                      child: Text(
+                        "L O G I N",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
                       ),
-                      fillColor: Colors.green[300],
-                      filled: true,
-                      hintText: "Enter your number",
-                      hintStyle: const TextStyle(color: Colors.white),
                     ),
-                  ),
+                    const SizedBox(height: 60),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        width: 400,
+                        child: TextField(
+                          keyboardType: TextInputType.phone,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 22),
+                          controller: phoneController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            hintText: "Enter your number",
+                            hintStyle: const TextStyle(
+                                color: Color.fromARGB(255, 4, 0, 48)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                    //   child: Container(
+                    //     width: 400,
+                    //     child: TextField(
+                    //       style: const TextStyle(color: Colors.white, fontSize: 22),
+                    //       controller: passController,
+                    //       keyboardType: TextInputType.visiblePassword,
+                    //       obscureText: true,
+                    //       decoration: InputDecoration(
+                    //         border: OutlineInputBorder(
+                    //           borderSide: BorderSide.none,
+                    //           borderRadius: BorderRadius.circular(10),
+                    //         ),
+                    //         fillColor: Colors.green[300],
+                    //         filled: true,
+                    //         hintText: "Enter your password",
+                    //         hintStyle: const TextStyle(color: Colors.white),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 30,
+                    // ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          shape: MaterialStatePropertyAll(
+                              ContinuousRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.elliptical(8, 8)))),
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.white)),
+                      onPressed: onsubmitted,
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          "SignIn",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 4, 0, 48),
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Text("or", style: TextStyle(color: Colors.white)),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    GLoginPage(number: phoneController.text),
+                  ],
                 ),
               ),
-              const SizedBox(height: 30),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: Container(
-              //     width: 400,
-              //     child: TextField(
-              //       style: const TextStyle(color: Colors.white, fontSize: 22),
-              //       controller: passController,
-              //       keyboardType: TextInputType.visiblePassword,
-              //       obscureText: true,
-              //       decoration: InputDecoration(
-              //         border: OutlineInputBorder(
-              //           borderSide: BorderSide.none,
-              //           borderRadius: BorderRadius.circular(10),
-              //         ),
-              //         fillColor: Colors.green[300],
-              //         filled: true,
-              //         hintText: "Enter your password",
-              //         hintStyle: const TextStyle(color: Colors.white),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 30,
-              // ),
-              ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll(Colors.green.shade500)),
-                onPressed: onsubmitted,
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text(
-                    "SignIn",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              GLoginPage(number: phoneController.text),
-            ],
+            ),
           ),
-        ),
+          Container(
+              height: 100, decoration: BoxDecoration(color: Colors.white)),
+        ]),
       ),
     );
   }
